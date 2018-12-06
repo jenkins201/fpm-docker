@@ -1,15 +1,18 @@
 FROM centos:7
-LABEL maintainer="dortiz@devops.faith"
+LABEL maintainer="simon@mccartney.ie"
 
 RUN yum install -y \
+  python-setuptools \
 	ruby-devel \
+	git \
 	gcc \
 	make \
 	ruby \
 	rpm-build \
 	rpm-sign && yum clean all
 
-RUN gem install fpm -v 1.9.3 --no-ri --no-rdoc
+RUN easy_install pip && pip install --upgrade setuptools
+RUN gem install fpm --no-ri --no-rdoc
 
 VOLUME [ "/tmp/fpm" ]
 WORKDIR /tmp/fpm
